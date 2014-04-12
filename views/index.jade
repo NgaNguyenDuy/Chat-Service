@@ -2,10 +2,19 @@ doctype html
 html(lang="en")
     head
         title Login
+        script(src='js/jquery.min.js')
         link(rel="stylesheet", href="css/bootstrap.min.css")
-        script(src='jquery.min.js')
+        link(rel="stylesheet", href="css/styles.css")
+        script(src='js/bootstrap.min.js')
         script(src="/socket.io/socket.io.js")
     body
-        p This is index page
-        form(name='login' action='/about' method='get')
-                input(type='submit' value='send').btn#btn-send
+        form.form-signin(name='login' action='/about' method='get' role='form')
+                h2.form-signin-heading Chat
+                input.form-control(type='text' placeholder='Nick name' required autofocus)
+                select.form-control
+                   option(value="selectroom" selected) Select Room
+                   option(value='fo3') FO3
+                   option(value='lol') LOL
+                   option(value='war') WAR
+                   option(value='alo') ALO
+                input(type='submit' value='send').btn.btn-primary#btn-send

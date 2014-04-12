@@ -20,13 +20,13 @@ app.set('view option', { layout: false });
 app.use(express.static(__dirname + '/public'));
 
 
-// app.get('/', function(req, res) {
-//     res.render('index.jade');
-// });
+app.get('/', routes);
+app.get('/about', routes.about);
 
 
-app.post('/', routes);
-app.post('/about', routes.about);
+app.use(function(req, res) {
+    res.render('404.jade', {url: req.url});
+});
 
 
 server.listen(appPort);
