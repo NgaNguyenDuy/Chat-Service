@@ -2,5 +2,10 @@ doctype html
 html(lang="en")
     head
         title Login
+        link(rel="stylesheet", href="css/bootstrap.min.css")
+        script(src='jquery.min.js')
+        script(src="/socket.io/socket.io.js")
     body
         p This is index page
+        form(name='login' action='/about' method='get')
+                input(type='submit' value='send').btn#btn-send

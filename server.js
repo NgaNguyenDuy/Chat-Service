@@ -25,8 +25,8 @@ app.use(express.static(__dirname + '/public'));
 // });
 
 
-app.get('/', routes);
-app.get('/about', routes.about);
+app.post('/', routes);
+app.post('/about', routes.about);
 
 
 server.listen(appPort);
