@@ -22,7 +22,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/', routes);
 app.get('/about', routes.about);
-
+app.get('/main', routes.main);
 
 app.use(function(req, res) {
     res.render('404.jade', {url: req.url});

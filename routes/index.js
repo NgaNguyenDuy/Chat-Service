@@ -3,5 +3,4 @@ module.exports = function(req, res) {
 };
 
 module.exports.about = require('./about');
-
-
+module.exports.main = require('./main');
