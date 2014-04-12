@@ -1,0 +1,9 @@
+{
+    "name": "ChatApplication",
+    "description": "Chat service with nodejs, socket.io ...",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "express": "4.x"
+    }
+}
