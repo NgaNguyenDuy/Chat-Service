@@ -2,6 +2,9 @@ var appPort = process.env.PORT || 1901,
     ip = process.env.IP || '127.0.0.1';
 
 
+var routes = require('./routes');
+
+
 var express = require('express'),
     app = express();
 
@@ -17,9 +20,13 @@ app.set('view option', { layout: false });
 app.use(express.static(__dirname + '/public'));
 
 
-app.get('/', function(req, res) {
-    res.render('index.jade');
-});
+// app.get('/', function(req, res) {
+//     res.render('index.jade');
+// });
+
+
+app.get('/', routes);
+app.get('/about', routes.about);
 
 
 server.listen(appPort);
