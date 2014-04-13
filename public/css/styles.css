@@ -29,11 +29,11 @@ body {
   z-index: 2;
 }
 .form-signin input[type="text"] {
-  margin-bottom: -1px;
+  margin-bottom: 10px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-.form-signin input[type="text"] {
+.form-signin input[type="password"] {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -53,7 +53,7 @@ body {
 }
 #chatConversion {
     float: left;
-    width: 100%;
+    width: 80%;
     border: 1px solid grey;
     border-radius: 5px;
     background-color: rgba(0,0,0,.05);
@@ -64,7 +64,20 @@ body {
 
 
  #listUser {
+    float: right;
      width: 20%;
+     border-radius: 5px;
      border: 1px solid grey;
      height: 500px;
+     background-color: rgba(0,0,0,.05);
+     box-shadow: 0 0 10px rgba(0,0,0,.5);
+}
+
+ #messageInput {
+     color: black;
+ }
+
+.close {
+    position: relative;
+    right: 10px;
 }

@@ -9,7 +9,9 @@ var express = require('express'),
     app = express();
 
 var http = require('http'),
-    server = http.createServer(app),
+    server = http.createServer(app).listen(appPort, ip, function() {
+        console.log('Started socketio');
+    }),
     io = require('socket.io').listen(server),
     jade = require('jade');
 
@@ -22,7 +24,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/', routes);
 app.get('/about', routes.about);
-app.get('/main', routes.main);
+app.get('/admin', routes.admin);
 
 app.use(function(req, res) {
     res.render('404.jade', {url: req.url});
@@ -31,3 +33,10 @@ app.use(function(req, res) {
 
 server.listen(appPort);
 console.log('Server listening at %s:%s', ip, appPort);
+
+
+
+// Handle socket.io
+
+var users = 0;
+

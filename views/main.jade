@@ -2,16 +2,18 @@ doctype html
 html(lang="en")
     head
         title Chat Service with Nodejs
-        script(src='js/jquery.min.js')
+        script(src='js/jquery-1.7.1.min.js')
+        script(src='js/jquery-ui.js')
         link(rel="stylesheet", href="css/bootstrap.min.css")
         link(rel="stylesheet", href="css/styles.css")
-        script(src='js/bootstrap.min.js')
+        script(src="js/bootstrap.min.js")
+        script(src="chat.js")
         script(src="/socket.io/socket.io.js")
     body
-        div.navbar.navbar-inverse.navbar-fixed-top(role="navigation")
+        div.navbar.navbar-default.navbar-fixed-top(role="navigation")
             div.container
                 div.navbar-header
-                    button(type='button').navbar-toggle(data-toggle="collapse" data-target=".navbar-collapse")
+                    button(type='button' data-toggle="collapse" data-target=".navbar-collapse").navbar-toggle
                         span.sr-only Toggle navigation
                         span.icon-bar
                         span.icon-bar
@@ -22,8 +24,43 @@ html(lang="en")
                         li.active
                             a(href="#Home") Home
                         li
-                            a(href="#About") About
+                            a(href="#modalAbout", data-toggle="modal") About
         div.container#main                            
-            div#chatConversion
-            div#listUser
-                        
+            div.panel.panel-success#chatConversion
+                div.panel-heading
+                    h3.panel-title Conversion
+                div.panel-body#talk Conversion list of user
+            div.panel.panel-success#listUser
+                div.panel-heading
+                    h3.panel-title List User
+                div.panel-body#luser This is body panel
+            input(type='text' autofocus).form-control#messageInput
+        div(tabindex="-1").modal.fade#modalPseudo
+            div.modal-header
+                a.close(href="#" data-dismiss="modal") x
+                h3 Welcome to ChatServices with Nodejs
+            div.modal-body
+                p Please choose a name to begin chat
+                    input.form-control(type='text' placeholder='Nick name' required autofocus)#pseudoInput
+                    select.form-control
+                        option(value='Select room') Select Room
+                        option(value='403') 403
+                        option(value='404') 404
+                        option(value='500') 500
+                        option(value='502') 502
+                        option(value='504') 504
+                div.alert.alert-error#alertPseudo
+                    | This name is already used! Choose another one.
+            div.modal-footer
+                button.btn.btn-success#pseudoSubmit Lets chat!
+        div.modal.fade#modalAbout
+            div.modal-header
+                a.close(href="#" data-dismiss="modal") x
+                h3 About this application
+            div.modal-body
+                p 	This application has been made with 
+                a(href="http://nodejs.org/") Node.js,
+                a(href="http://socket.io/") Socket.io,
+                a(href="http://expressjs.com/") Express et
+                a(href="http://jade-lang.com/") Jade.
+                p 	This application has made by Nga Nguyen Duy
