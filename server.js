@@ -40,3 +40,12 @@ console.log('Server listening at %s:%s', ip, appPort);
 
 var users = 0;
 
+var run = function(socket) {
+    socket.emit('greeting', "Hello from socket io");
+    socket.on('setNickName', function(data) {
+        console.log("user " + data + " connected!!");
+    });
+};
+
+io.sockets.on('connection', run);
+

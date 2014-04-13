@@ -2,9 +2,28 @@ var message;
 $(document).ready(function() {
     $("#alertPseudo").hide();
     $('#modalPseudo').modal('show');
+    $('#pseudoSubmit').click(function() {
+        setConnect();
+    });
     checkInput();
     message = $('#messageInput');
 });
+
+var socket = io.connect();
+socket.on('greeting', function(data) {
+    alert(data);
+});
+
+
+function setConnect() {
+    if ($('#pseudoInput').val() != "") {
+        socket.emit('setNickName', $('#pseudoInput').val());
+        
+        //$('#modalPseudo').modal('hide');
+    } else {
+        alert("Please enter your nick name to chat!!");
+    }
+}
 
 function checkInput() {
     $("#messageInput").keyup(function(e) {
