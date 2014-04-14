@@ -32,8 +32,8 @@ html(lang="en")
                 div.panel-body#talk Conversion list of user
             div.panel.panel-success#listUser
                 div.panel-heading
-                    h3.panel-title List User
-                div.panel-body#luser This is body panel
+                    h3.panel-title#numUser 
+                div.panel-body#luser
             input(type='text' autofocus).form-control#messageInput
         div(tabindex="-1").modal.fade#modalPseudo
             div.modal-header
@@ -49,7 +49,7 @@ html(lang="en")
                         option(value='500') 500
                         option(value='502') 502
                         option(value='504') 504
-                div.alert.alert-error#alertPseudo
+                div.alert.alert-error#alertError
                     | This name is already used! Choose another one.
             div.modal-footer
                 button.btn.btn-success#pseudoSubmit Lets chat!

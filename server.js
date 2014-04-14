@@ -35,6 +35,7 @@ server.listen(appPort);
 console.log('Server listening at %s:%s', ip, appPort);
 
 
+var userArray = ['admin'];
 
 // Handle socket.io
 
@@ -42,10 +43,30 @@ var users = 0;
 
 var run = function(socket) {
     socket.emit('greeting', "Hello from socket io");
-    socket.on('setNickName', function(data) {
-        console.log("user " + data + " connected!!");
+    users += 1;
+    reloadUser();
+    socket.on('setNickName', function(data) { // Assign nick name for user connected.
+        if (userArray.indexOf(data) == -1) {
+            socket.set('pseudo', data, function() {
+                userArray.push(data);
+                socket.emit('status', 'ok');
+                console.log("User " + data + " connected!!");
+            });
+            
+        } else {
+            socket.emit('status', 'error');
+        }
+    });
+    socket.on('disconnect', function() {
+        users -= 1;
+        reloadUser();
     });
 };
 
 io.sockets.on('connection', run);
+
+
+function reloadUser() {
+    io.sockets.emit('nUsers', {"nb": users});
+}
 

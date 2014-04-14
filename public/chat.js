@@ -1,7 +1,8 @@
-var message;
+var message, inp;
 $(document).ready(function() {
-    $("#alertPseudo").hide();
-    $('#modalPseudo').modal('show');
+    message = $("#messageInput");
+    $("#alertError").hide();
+    $('#modalPseudo').modal('toggle');
     $('#pseudoSubmit').click(function() {
         setConnect();
     });
@@ -10,15 +11,35 @@ $(document).ready(function() {
 });
 
 var socket = io.connect();
+
+socket.on('connect', function() {
+    console.log('connected');
+});
 socket.on('greeting', function(data) {
-    alert(data);
+    //alert(data);
+});
+
+socket.on('nUsers', function(u) {
+    $("#numUser").html(u.nb + " ket noi");
 });
 
 
 function setConnect() {
-    if ($('#pseudoInput').val() != "") {
+    inp = $('#pseudoInput').val();
+    //if ($('#pseudoInput').val() != "") {
+    if ($.trim(inp) != "") {
         socket.emit('setNickName', $('#pseudoInput').val());
-        
+        socket.on('status', function(data) {
+            if (data == "ok") {
+                $("#alertError").hide();
+                $("#modalPseudo").modal('hide');
+                
+                $("#luser").append(inp);
+            } else {
+                $("#alertError").html("The user " + inp + " realy taken!!");
+                $("#alertError").slideDown();
+            }
+        });
         //$('#modalPseudo').modal('hide');
     } else {
         alert("Please enter your nick name to chat!!");
@@ -32,8 +53,17 @@ function checkInput() {
             if ($.trim(value) == "") {
                 alert("Ban phai nhap vao tin nhan");
             } else {
-                alert($.trim(value));
+                sendMess();
             }
         }
     });
+}
+
+
+function sendMess() {
+    if (message != "") {
+        alert(inp);
+    } else {
+        alert("failed");
+    }
 }
