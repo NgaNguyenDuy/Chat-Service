@@ -45,6 +45,17 @@ var run = function(socket) {
     socket.emit('greeting', "Hello from socket io");
     users += 1;
     reloadUser();
+    socket.on('sendMess', function(data) {
+        if (userSet(socket)) {
+            var transmit = {
+                date : new Date().toISOString(),
+                name : returnName(socket),
+                message : data
+            };
+            socket.broadcast.emit('message', transmit);
+            console.log("Username : " + transmit['name'] + " said " + data);
+        }
+    });
     socket.on('setNickName', function(data) { // Assign nick name for user connected.
         if (userArray.indexOf(data) == -1) {
             socket.set('pseudo', data, function() {
@@ -70,3 +81,23 @@ function reloadUser() {
     io.sockets.emit('nUsers', {"nb": users});
 }
 
+
+function userSet(socket) { // Test if the user has a name
+    var check;
+    socket.get('pseudo', function(err, name) {
+        if (name == null) {
+            check = false;
+        } else check = true;
+    });
+    return check;
+}
+
+function returnName(socket) {
+    var userName;
+    socket.get('pseudo', function(err, name) {
+        if (name == null) {
+            userName = false;
+        } else userName = name;
+    });
+    return userName;
+}

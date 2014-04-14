@@ -23,6 +23,10 @@ socket.on('nUsers', function(u) {
     $("#numUser").html(u.nb + " ket noi");
 });
 
+socket.on('message', function(data) {
+    addMess(data['message'], data['name'], new Date().toISOString(), false);
+});
+
 
 function setConnect() {
     inp = $('#pseudoInput').val();
@@ -62,8 +66,27 @@ function checkInput() {
 
 function sendMess() {
     if (message != "") {
-        alert(inp);
+        if ($.trim(inp) == "") {
+            alert("Ban phai nhap nick name truoc khi bat dau chat");
+            $('#modalPseudo').modal('show');
+        } else {
+            socket.emit("sendMess", message.val());
+            addMess(message.val(), "ME", new Date().toISOString(), true);
+            message.val('');
+            //alert(inp);
+        }
     } else {
         alert("failed");
     }
+}
+
+
+function addMess(msg, nickname, date, self) {
+    if (self) {
+        var classDiv = "row message self";
+    } else {
+        var classDiv = "row message";
+    }
+    
+    $("#talk").append("User " + nickname + " said: " + msg);
 }
