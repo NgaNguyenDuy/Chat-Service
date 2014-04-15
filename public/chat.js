@@ -7,7 +7,10 @@ $(document).ready(function() {
         setConnect();
     });
     checkInput();
-    message = $('#messageInput');
+    $("#talk").slimScroll({
+        height: '450px'
+    });
+//    message = $('#messageInput');
 });
 
 var socket = io.connect();
@@ -71,13 +74,23 @@ function sendMess() {
             $('#modalPseudo').modal('show');
         } else {
             socket.emit("sendMess", message.val());
-            addMess(message.val(), "ME", new Date().toISOString(), true);
+            addMess(message.val(), "Me", new Date().toISOString(), true);
             message.val('');
             //alert(inp);
         }
     } else {
         alert("failed");
     }
+}
+
+function addUser(nickname, self) {
+    if (self) {
+        var userDiv = "row nickname self";
+    } else {
+        var userDiv = "row nickname";
+    }
+    
+    
 }
 
 
@@ -88,5 +101,8 @@ function addMess(msg, nickname, date, self) {
         var classDiv = "row message";
     }
     
-    $("#talk").append("User " + nickname + " said: " + msg);
+    //$("#talk").append('div class="' + classDiv + '"><p class="infos"><span class="userNick">' + nickname + '</span>, <time class="date" title="'+date+'">' + date +'</time><p>' + msg + '</p></p>');
+    
+    $('#talk').append('<div class="'+classDiv+'"><p class="infos"><span class="pseudo">'+nickname+'</span>,<time class="date" title="'+date+'">'+date+'</time></p><p>' + msg + '</p></div>');
+    
 }

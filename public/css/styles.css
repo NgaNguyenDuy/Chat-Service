@@ -82,3 +82,37 @@ body {
     top: -5px;
     right: 10px;
 }
+
+#chatConversion {
+   border: 1px solid grey;
+    border-radius: 5px;
+    background-color: rgba(0,0,0,.05);
+    margin-bottom: 20px;
+    height: 500px;
+    box-shadow: 0 0 10px rgba(0,0,0,.5);
+}
+
+.infos {
+	font-size: 11px;
+	color: #5C5C5C;
+}
+
+.message {
+	overflow: hidden;
+	padding: 0 12px;
+	color: black;
+   font-family: Cursive;
+	background: #ababab; /* Old browsers */
+	float: left;
+	margin-left: 0;
+	width: 864px;
+    -webkit-animation-name: flip;
+    -webkit-animation-duration: 500ms;
+    border-bottom:1px solid rgba(0, 0, 0, .1);
+}
+
+.self {
+	background: #c7c7c7; /* Old browsers */
+	color: black;
+	text-align: right;
+}
