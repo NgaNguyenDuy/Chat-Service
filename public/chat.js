@@ -26,6 +26,7 @@ socket.on('nUsers', function(u) {
     $("#numUser").html(u.nb + " ket noi");
 });
 
+
 socket.on('message', function(data) {
     addMess(data['message'], data['name'], new Date().toISOString(), false);
 });
@@ -41,7 +42,11 @@ function setConnect() {
                 $("#alertError").hide();
                 $("#modalPseudo").modal('hide');
                 
-                $("#luser").append(inp);
+                socket.on('luser', function(data) {
+                    $("#luser").append(data);
+                });
+
+                //$("#luser").append(inp);
             } else {
                 $("#alertError").html("The user " + inp + " realy taken!!");
                 $("#alertError").slideDown();

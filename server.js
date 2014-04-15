@@ -61,6 +61,7 @@ var run = function(socket) {
             socket.set('pseudo', data, function() {
                 userArray.push(data);
                 socket.emit('status', 'ok');
+                socket.emit('luser', returnName(socket));
                 console.log("User " + data + " connected!!");
             });
             
