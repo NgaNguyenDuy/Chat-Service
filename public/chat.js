@@ -1,6 +1,7 @@
 var message, inp;
 $(document).ready(function() {
     message = $("#messageInput");
+    $("#bodyHead").css({overflow: 'auto'});
     $("#alertError").hide();
     $('#modalPseudo').modal('toggle');
     $('#pseudoSubmit').click(function() {
@@ -9,6 +10,10 @@ $(document).ready(function() {
     checkInput();
     $("#talk").slimScroll({
         height: '450px'
+    });
+    $(".selectpicker").selectpicker({
+        style: 'btn-info',
+        size: 4
     });
 //    message = $('#messageInput');
 });
