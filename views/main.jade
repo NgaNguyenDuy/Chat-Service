@@ -10,6 +10,7 @@ html(lang="en")
         link(rel="stylesheet", href="css/bootstrap-select.css")
         script(src="js/bootstrap.min.js")
         script(src="js/bootstrap-select.js")
+        script(src="js/bootbox.min.js")
         script(src="/socket.io/socket.io.js")
         script(src="chat.js")
     body
@@ -37,7 +38,7 @@ html(lang="en")
                 div.panel-heading
                     h3.panel-title#numUser 
                 div.panel-body#luser
-            input(type='text' autofocus).form-control#messageInput
+            textarea.form-control#messageInput
         div(tabindex="-1").modal.fade#modalPseudo
             div.modal-header
                 a.close(href="#" data-dismiss="modal") x

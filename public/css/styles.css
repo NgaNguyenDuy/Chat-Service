@@ -116,3 +116,18 @@ body {
 	color: black;
 	text-align: right;
 }
+
+.test1 {
+  width: 600px;
+  height: 260px;
+  overflow: hidden;
+}
+
+.bb-checkmess {
+  width: 600px;
+  overflow: hidden;
+}
+
+#modalPseudo {
+  width: 600px
+}

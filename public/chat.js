@@ -3,7 +3,7 @@ $(document).ready(function() {
     message = $("#messageInput");
     $("#bodyHead").css({overflow: 'auto'});
     $("#alertError").hide();
-    $('#modalPseudo').modal('toggle');
+    showModal();
     $('#pseudoSubmit').click(function() {
         setConnect();
     });
@@ -15,7 +15,6 @@ $(document).ready(function() {
         style: 'btn-info',
         size: 4
     });
-//    message = $('#messageInput');
 });
 
 var socket = io.connect();
@@ -46,12 +45,10 @@ function setConnect() {
             if (data == "ok") {
                 $("#alertError").hide();
                 $("#modalPseudo").modal('hide');
-                
+                $("#messageInput").focus();
                 socket.on('luser', function(data) {
                     $("#luser").append(data);
                 });
-
-                //$("#luser").append(inp);
             } else {
                 $("#alertError").html("The user " + inp + " realy taken!!");
                 $("#alertError").slideDown();
@@ -59,16 +56,42 @@ function setConnect() {
         });
         //$('#modalPseudo').modal('hide');
     } else {
-        alert("Please enter your nick name to chat!!");
+        bootbox.dialog({
+            message: "Bạn phải nhập nickname để bắt đầu chat",
+            title: "Cảnh báo!!!",
+            className: "test1",
+            buttons: {
+                success: {
+                    label: "Go back!",
+                    className: "btn-primary",
+                    callback: function() {
+                        // Function execute when click Go-back button
+                    }
+                }
+            }
+        });
     }
 }
 
 function checkInput() {
     $("#messageInput").keyup(function(e) {
         var value = $( this ).val();
-        if(e.keyCode == 13) {
+        if(e.keyCode == 13 && !e.shiftKey) {
             if ($.trim(value) == "") {
-                alert("Ban phai nhap vao tin nhan");
+                bootbox.dialog({
+                    message: "Ban phai nhap vao tin nhan de chat",
+                    title: "Canh bao",
+                    className: "bb-checkmess",
+                    buttons: {
+                        success: {
+                            label: "Go back",
+                            className: "btn-primary",
+                            callback: function(){
+                                $("#messageInput").focus();
+                            }
+                        }
+                    }
+                });
             } else {
                 sendMess();
             }
@@ -80,8 +103,7 @@ function checkInput() {
 function sendMess() {
     if (message != "") {
         if ($.trim(inp) == "") {
-            alert("Ban phai nhap nick name truoc khi bat dau chat");
-            $('#modalPseudo').modal('show');
+            showBootbox();
         } else {
             socket.emit("sendMess", message.val());
             addMess(message.val(), "Me", new Date().toISOString(), true);
@@ -93,11 +115,34 @@ function sendMess() {
     }
 }
 
+function showBootbox() {
+    bootbox.dialog({
+        message: "Bạn phải nhập nickname để bắt đầu chat",
+        title: "Cảnh báo!!!",
+        className: "test1",
+        buttons: {
+            success: {
+                label: "Go back!",
+                className: "btn-primary",
+                callback: function() {
+                    showModal();
+                }
+            }
+        }
+    });
+}
+
+function showModal() {
+    $('#modalPseudo').modal('toggle');
+    $('#pseudoInput').focus();
+}
+
 function addUser(nickname, self) {
+    var userDiv;
     if (self) {
-        var userDiv = "row nickname self";
+        userDiv = "row nickname self";
     } else {
-        var userDiv = "row nickname";
+        userDiv = "row nickname";
     }
     
     
