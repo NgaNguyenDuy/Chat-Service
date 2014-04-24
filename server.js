@@ -36,6 +36,7 @@ console.log('Server listening at %s:%s', ip, appPort);
 
 
 var userArray = ['admin'];
+var ListClient = new Object();
 
 // Handle socket.io
 
@@ -57,6 +58,9 @@ var run = function(socket) {
         }
     });
     socket.on('setNickName', function(data) { // Assign nick name for user connected.
+        
+        
+        
         if (userArray.indexOf(data) == -1) {
             socket.set('pseudo', data, function() {
                 userArray.push(data);

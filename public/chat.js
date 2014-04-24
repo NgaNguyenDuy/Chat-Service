@@ -2,7 +2,7 @@ var message, inp;
 $(document).ready(function() {
     message = $("#messageInput");
     $("#bodyHead").css({overflow: 'auto'});
-    $("#alertError").hide();
+    hideError();
     showModal();
     $('#pseudoSubmit').click(function() {
         setConnect();
@@ -11,11 +11,14 @@ $(document).ready(function() {
     $("#talk").slimScroll({
         height: '450px'
     });
-    $(".selectpicker").selectpicker({
-        style: 'btn-info',
-        size: 4
-    });
+    addRoom();
+
 });
+
+function hideError() {
+    $("#alertError").hide();
+    $("#errorRoom").hide();
+}
 
 var socket = io.connect();
 
@@ -35,6 +38,21 @@ socket.on('message', function(data) {
     addMess(data['message'], data['name'], new Date().toISOString(), false);
 });
 
+
+function addRoom () {
+    $("#plus").on('click', function() {
+        $("#modalAddRoom").modal('toggle');
+        $("#roomInput").val("");
+        $("#roomInput").focus();
+    });
+
+    $("#enterRoom").on('click', function() {
+        // Check room if exist
+        $("#roomName").append($("#roomInput").val()+"<br/>");
+        $("#modalAddRoom").modal('toggle');
+    });
+
+}
 
 function setConnect() {
     inp = $('#pseudoInput').val();
@@ -155,7 +173,6 @@ function addMess(msg, nickname, date, self) {
     } else {
         var classDiv = "row message";
     }
-    
     //$("#talk").append('div class="' + classDiv + '"><p class="infos"><span class="userNick">' + nickname + '</span>, <time class="date" title="'+date+'">' + date +'</time><p>' + msg + '</p></p>');
     
     $('#talk').append('<div class="'+classDiv+'"><p class="infos"><span class="pseudo">'+nickname+'</span>,<time class="date" title="'+date+'">'+date+'</time></p><p>' + msg + '</p></div>');

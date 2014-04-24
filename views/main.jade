@@ -7,9 +7,7 @@ html(lang="en")
         script(src='js/jquery.slimscroll.min.js')
         link(rel="stylesheet", href="css/bootstrap.min.css")
         link(rel="stylesheet", href="css/styles.css")
-        link(rel="stylesheet", href="css/bootstrap-select.css")
         script(src="js/bootstrap.min.js")
-        script(src="js/bootstrap-select.js")
         script(src="js/bootbox.min.js")
         script(src="/socket.io/socket.io.js")
         script(src="chat.js")
@@ -30,15 +28,30 @@ html(lang="en")
                         li
                             a(href="#modalAbout", data-toggle="modal") About
         div.container#main                            
-            div.panel.panel-success#chatConversion
+            div.panel.panel-primary#chatConversion
                 div.panel-heading
                     h3.panel-title#room Conversion
                 div.panel-body#talk
-            div.panel.panel-success#listUser
-                div.panel-heading
-                    h3.panel-title#numUser 
-                div.panel-body#luser
+            div#right
+                div.panel.panel-primary#listUser
+                    div.panel-heading
+                        h3.panel-title#numUser 
+                    div.panel-body#luser
+                div.panel.panel-primary#listRoom
+                    div.panel-heading
+                        h3.panel-title Room
+                        span#plus +
+                    div.panel-body#roomName
             textarea.form-control#messageInput
+        div.modal.fade#modalAddRoom
+            div.modal-header
+                h3 Add Room
+            div.modal-body#bodyAdd
+                input.form-control(type='text' placeholder='Room name' required autofocus)#roomInput
+            div.alert.alert-error#errorRoom
+                | This room was exist
+            div.modal-footer
+                button.btn.btn-success#enterRoom Create Room
         div(tabindex="-1").modal.fade#modalPseudo
             div.modal-header
                 a.close(href="#" data-dismiss="modal") x
@@ -46,13 +59,6 @@ html(lang="en")
             div.modal-body#bodyHead
                 p Please choose a name to begin chat
                     input.form-control(type='text' placeholder='Nick name' required autofocus)#pseudoInput
-                    select.form-control.selectpicker
-                        option(value='Select room') Select Room
-                        option(value='403') 403
-                        option(value='404') 404
-                        option(value='500') 500
-                        option(value='502') 502
-                        option(value='504') 504
                 div.alert.alert-error#alertError
                     | This name is already used! Choose another one.
             div.modal-footer

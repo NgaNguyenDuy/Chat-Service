@@ -53,7 +53,7 @@ body {
 }
 #chatConversion {
     float: left;
-    width: 80%;
+    width: 79%;
     border: 1px solid grey;
     border-radius: 5px;
     background-color: rgba(0,0,0,.05);
@@ -62,13 +62,32 @@ body {
     box-shadow: 0 0 10px rgba(0,0,0,.5);
  }
 
+#right {
+    float: right;
+    width: 20%;
+  height: 500px;
+}
+
+#listRoom {
+  border-radius: 5px;
+     border: 1px solid grey;
+  height: 48%;
+     background-color: rgba(0,0,0,.05);
+     box-shadow: 0 0 10px rgba(0,0,0,.5);
+}
+
+#plus {
+  float: right;
+  position: relative;
+  top: -25px;
+  font-size: 20px;
+  font-weight: bold;
+}
 
  #listUser {
-    float: right;
-     width: 20%;
      border-radius: 5px;
      border: 1px solid grey;
-     height: 500px;
+  height: 48%;
      background-color: rgba(0,0,0,.05);
      box-shadow: 0 0 10px rgba(0,0,0,.5);
 }
@@ -119,7 +138,7 @@ body {
 
 .test1 {
   width: 600px;
-  height: 260px;
+  height: 220px;
   overflow: hidden;
 }
 
