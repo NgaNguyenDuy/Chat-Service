@@ -89,6 +89,10 @@ io.sockets.on('connection', run);
 
 function subcribe(socket, data) {
     var room = getRooms();
+    
+    if (room.indexOf()) {
+        
+    }
 }
 
 function reloadUser() {

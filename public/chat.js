@@ -1,4 +1,4 @@
-var message, inp;
+var message, inp, clientId = null;
 $(document).ready(function() {
     message = $("#messageInput");
     $("#bodyHead").css({overflow: 'auto'});
@@ -64,8 +64,15 @@ function setConnect() {
                 $("#alertError").hide();
                 $("#modalPseudo").modal('hide');
                 $("#messageInput").focus();
-                socket.on('luser', function(data) {
+
+                socket.on('new-user', function(data) {
                     $("#luser").append(data);
+                });
+                
+                socket.on('luser', function(data) {
+                    for (var prop in data) {
+                        $("#luser").append(prop + "<br/>");
+                    }
                 });
             } else {
                 $("#alertError").html("The user " + inp + " realy taken!!");
