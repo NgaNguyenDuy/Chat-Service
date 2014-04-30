@@ -58,14 +58,11 @@ body {
     box-shadow: 0 0 10px rgba(0,0,0,.5);
  }
 
-#right {
-    height: 500px;
-}
 
 #listRoom {
   border-radius: 5px;
      border: 1px solid grey;
-  height: 48%;
+
      background-color: rgba(0,0,0,.05);
      box-shadow: 0 0 10px rgba(0,0,0,.5);
 }
@@ -81,7 +78,6 @@ body {
  #listUser {
      border-radius: 5px;
      border: 1px solid grey;
-  height: 48%;
      background-color: rgba(0,0,0,.05);
      box-shadow: 0 0 10px rgba(0,0,0,.5);
 }

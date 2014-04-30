@@ -66,13 +66,15 @@ var run = function(socket) {
     });
     
     
+    
     socket.on('setNickName', function(data) { // Assign nick name for user connected.
         
         socket.broadcast.emit('new-user', data);
         
-        if (userArray.indexOf(data) == -1) {
+//        if (userArray.indexOf(data) == -1) {
+        if (!ListClient.hasOwnProperty(data)) {
             socket.set('pseudo', data, function() {
-                userArray.push(data);
+//                userArray.push(data);
                 socket.emit('status', 'ok');
 //                socket.emit('luser', returnName(socket));
                 socket.emit('luser', ListClient);
