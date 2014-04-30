@@ -39,6 +39,16 @@ socket.on('message', function(data) {
 });
 
 
+socket.on('new-room', function(data) {
+    $("#roomName").append( data +"<br/>");
+});
+
+
+socket.on('remove-user', function(data) {
+    var t = '.user-' + data;
+    $(t).remove();
+});
+
 function addRoom () {
     $("#plus").on('click', function() {
         $("#modalAddRoom").modal('toggle');
@@ -49,6 +59,7 @@ function addRoom () {
     $("#enterRoom").on('click', function() {
         // Check room if exist
         $("#roomName").append($("#roomInput").val()+"<br/>");
+        socket.emit('create-room', $('#roomInput').val());
         $("#modalAddRoom").modal('toggle');
     });
 
@@ -64,14 +75,17 @@ function setConnect() {
                 $("#alertError").hide();
                 $("#modalPseudo").modal('hide');
                 $("#messageInput").focus();
-
+                
+                $('#luser').append("<div class='user-" + inp +  "' style='color: green;'>" + inp + "</div>");
+                
                 socket.on('new-user', function(data) {
-                    $("#luser").append(data);
+                    $('#talk').append(data + "has joined!!");
+                    $('#luser').append(data + "<br/>");
                 });
                 
                 socket.on('luser', function(data) {
                     for (var prop in data) {
-                        $("#luser").append(prop + "<br/>");
+                        $("#luser").append("<div class='user-" + prop + "'>" + prop +  "</div>");
                     }
                 });
             } else {

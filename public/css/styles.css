@@ -52,20 +52,14 @@ body {
 	padding-top: 50px;
 }
 #chatConversion {
-    float: left;
-    width: 79%;
     border: 1px solid grey;
     border-radius: 5px;
     background-color: rgba(0,0,0,.05);
-    margin-bottom: 20px;
-    height: 500px;
     box-shadow: 0 0 10px rgba(0,0,0,.5);
  }
 
 #right {
-    float: right;
-    width: 20%;
-  height: 500px;
+    height: 500px;
 }
 
 #listRoom {
@@ -118,7 +112,6 @@ body {
 
 .message {
 	overflow: hidden;
-	padding: 0 12px;
 	color: black;
    font-family: Cursive;
 	background: #ababab; /* Old browsers */

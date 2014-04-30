@@ -28,15 +28,14 @@ html(lang="en")
                         li
                             a(href="#modalAbout", data-toggle="modal") About
         div.container#main                            
-            div.panel.panel-primary#chatConversion
+            div.col-xs-9.panel#chatConversion
                 div.panel-heading
-                    h3.panel-title#room Conversion
                 div.panel-body#talk
-            div#right
+            div.col-xs-3#right
                 div.panel.panel-primary#listUser
                     div.panel-heading
                         h3.panel-title#numUser 
-                    div.panel-body#luser
+                    ul.panel-body#luser
                 div.panel.panel-primary#listRoom
                     div.panel-heading
                         h3.panel-title Room
@@ -48,6 +47,7 @@ html(lang="en")
                 h3 Add Room
             div.modal-body#bodyAdd
                 input.form-control(type='text' placeholder='Room name' required autofocus)#roomInput
+                input.form-control(type='password' placeholder='Pass your room' required autofocus)#roomPass
             div.alert.alert-error#errorRoom
                 | This room was exist
             div.modal-footer

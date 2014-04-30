@@ -31,6 +31,9 @@ app.use(function(req, res) {
 });
 
 
+// Config socketio
+// io.set('log level', 1);
+
 server.listen(appPort);
 console.log('Server listening at %s:%s', ip, appPort);
 
@@ -57,6 +60,12 @@ var run = function(socket) {
             console.log("Username : " + transmit['name'] + " said " + data);
         }
     });
+    
+    socket.on('create-room', function(data) {
+        socket.broadcast.emit('new-room', data);
+    });
+    
+    
     socket.on('setNickName', function(data) { // Assign nick name for user connected.
         
         socket.broadcast.emit('new-user', data);
@@ -64,12 +73,10 @@ var run = function(socket) {
         if (userArray.indexOf(data) == -1) {
             socket.set('pseudo', data, function() {
                 userArray.push(data);
-                
-                ListClient[data] = socket.id;
-                
                 socket.emit('status', 'ok');
 //                socket.emit('luser', returnName(socket));
                 socket.emit('luser', ListClient);
+                ListClient[data] = socket.id;
                 console.log("User " + data + " connected!!");
 //                console.log(ListClient);
             });
@@ -81,8 +88,16 @@ var run = function(socket) {
     socket.on('disconnect', function() {
         users -= 1;
         reloadUser();
+        for (var prop in ListClient) {
+            if (socket.id == ListClient[prop]) {
+                socket.broadcast.emit('remove-user', prop);
+                delete ListClient[prop];
+            }
+        }
     });
 };
+
+
 
 io.sockets.on('connection', run);
 
