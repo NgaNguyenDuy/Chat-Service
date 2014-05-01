@@ -21,10 +21,26 @@ function hideError() {
 }
 
 var socket = io.connect();
-
 socket.on('connect', function() {
+
+    
     console.log('connected');
+    
 });
+
+
+socket.on('roomslist', function(data) {
+    for(var i = 0, len = data.rooms.length; i < len; i++){
+        if(data.rooms[i] != ''){
+			//    addRoom(data.rooms[i], false);
+            console.log("add room list");
+		} else {
+            console.log("hic");
+        }
+    }
+});
+
+
 socket.on('greeting', function(data) {
     //alert(data);
 });
@@ -46,6 +62,7 @@ socket.on('new-room', function(data) {
 
 socket.on('remove-user', function(data) {
     var t = '.user-' + data;
+    $('#talk').append('<div class="row ser"><span class="noti">Server said: </span>User ' + data + ' has disconnected.</div>');
     $(t).remove();
 });
 
@@ -55,10 +72,15 @@ function addRoom () {
         $("#roomInput").val("");
         $("#roomInput").focus();
     });
+    
+    var check_room = document.getElementById('check-private');
+    if (check_room.checked) {
+        alert("hehe");
+    }
 
     $("#enterRoom").on('click', function() {
         // Check room if exist
-        $("#roomName").append($("#roomInput").val()+"<br/>");
+        $("#roomName").append("<div class='fa fa-users'>" + " " + $("#roomInput").val()+"</div><br/>");
         socket.emit('create-room', $('#roomInput').val());
         $("#modalAddRoom").modal('toggle');
     });
@@ -75,17 +97,21 @@ function setConnect() {
                 $("#alertError").hide();
                 $("#modalPseudo").modal('hide');
                 $("#messageInput").focus();
+
                 
-                $('#luser').append("<div class='user-" + inp +  "' style='color: green;'>" + inp + "</div>");
+
+                
+                $('#luser').append("<li class='list user-" + inp +  "' style='color: green; font-weight: bold;'>" + "<span class='icon-act'></span>" + " " +inp + "</li>");
                 
                 socket.on('new-user', function(data) {
-                    $('#talk').append(data + "has joined!!");
-                    $('#luser').append(data + "<br/>");
+                    $('#talk').append("<div class='row ser'><span class='noti'>Server said: </span>User " + data + " has joined!!</div>");
+                    $('#luser').append("<li class='list user-" + data +  "'>" + "<span class='icon'></span>" + " " + data + "</li>");
                 });
                 
                 socket.on('luser', function(data) {
                     for (var prop in data) {
-                        $("#luser").append("<div class='user-" + prop + "'>" + prop +  "</div>");
+                        //$("#luser").append("<div class='fa fa-user user-" + prop + "'>" + " " + prop +  "</div>");
+                        $("#luser").append("<li class='list user-" + prop + "'>" + " <span class='icon'></span> " + " " + prop +  "</li>");
                     }
                 });
             } else {

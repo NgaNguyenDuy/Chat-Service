@@ -7,6 +7,7 @@ html(lang="en")
         script(src='js/jquery.slimscroll.min.js')
         link(rel="stylesheet", href="css/bootstrap.min.css")
         link(rel="stylesheet", href="css/styles.css")
+        link(rel="stylesheet", href="font-awesome/css/font-awesome.min.css")
         script(src="js/bootstrap.min.js")
         script(src="js/bootbox.min.js")
         script(src="/socket.io/socket.io.js")
@@ -34,7 +35,7 @@ html(lang="en")
             div.col-xs-3#right
                 div.panel.panel-primary#listUser
                     div.panel-heading
-                        h3.panel-title#numUser 
+                        h3.panel-title#numUser
                     ul.panel-body#luser
                 div.panel.panel-primary#listRoom
                     div.panel-heading
@@ -47,7 +48,8 @@ html(lang="en")
                 h3 Add Room
             div.modal-body#bodyAdd
                 input.form-control(type='text' placeholder='Room name' required autofocus)#roomInput
-                input.form-control(type='password' placeholder='Pass your room' required autofocus)#roomPass
+                input#check-private(type='checkbox')
+                input.form-control(type='password' placeholder='Pass your room' style='display: none;' required autofocus)#roomPass
             div.alert.alert-error#errorRoom
                 | This room was exist
             div.modal-footer

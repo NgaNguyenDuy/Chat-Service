@@ -66,7 +66,8 @@ var run = function(socket) {
     });
     
     
-    
+    socket.emit('roomslist', { rooms: getRooms() });
+        
     socket.on('setNickName', function(data) { // Assign nick name for user connected.
         
         socket.broadcast.emit('new-user', data);
@@ -96,6 +97,7 @@ var run = function(socket) {
                 delete ListClient[prop];
             }
         }
+        
     });
 };
 
