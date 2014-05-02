@@ -47,6 +47,7 @@ var users = 0;
 
 var run = function(socket) {
     socket.emit('greeting', "Hello from socket io");
+
     users += 1;
     reloadUser();
     socket.on('sendMess', function(data) {
@@ -62,12 +63,12 @@ var run = function(socket) {
     });
     
     socket.on('create-room', function(data) {
-        socket.broadcast.emit('new-room', data);
+//        socket.broadcast.emit('new-room', data.room);
+        socket.broadcast.emit('new-room', {'room': data.room, 'user': returnName(socket)});
+        socket.join(data.room);
+        socket.emit('roomslist', { rooms: getRooms() });
     });
     
-    
-    socket.emit('roomslist', { rooms: getRooms() });
-        
     socket.on('setNickName', function(data) { // Assign nick name for user connected.
         
         socket.broadcast.emit('new-user', data);
@@ -75,13 +76,10 @@ var run = function(socket) {
 //        if (userArray.indexOf(data) == -1) {
         if (!ListClient.hasOwnProperty(data)) {
             socket.set('pseudo', data, function() {
-//                userArray.push(data);
                 socket.emit('status', 'ok');
-//                socket.emit('luser', returnName(socket));
                 socket.emit('luser', ListClient);
                 ListClient[data] = socket.id;
                 console.log("User " + data + " connected!!");
-//                console.log(ListClient);
             });
             
         } else {
@@ -108,10 +106,6 @@ io.sockets.on('connection', run);
 
 function subcribe(socket, data) {
     var room = getRooms();
-    
-    if (room.indexOf()) {
-        
-    }
 }
 
 function reloadUser() {

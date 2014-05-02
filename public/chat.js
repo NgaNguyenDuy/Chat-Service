@@ -30,14 +30,15 @@ socket.on('connect', function() {
 
 
 socket.on('roomslist', function(data) {
-    for(var i = 0, len = data.rooms.length; i < len; i++){
-        if(data.rooms[i] != ''){
-			//    addRoom(data.rooms[i], false);
-            console.log("add room list");
-		} else {
-            console.log("hic");
-        }
-    }
+    console.log('success');
+    // for(var i = 0, len = data.rooms.length; i < len; i++){
+    //     if(data.rooms[i] != ''){
+	// 		//    addRoom(data.rooms[i], false);
+    //         console.log("add room list");
+	// 	} else {
+    //         console.log("hic");
+    //     }
+    // }
 });
 
 
@@ -56,7 +57,9 @@ socket.on('message', function(data) {
 
 
 socket.on('new-room', function(data) {
-    $("#roomName").append( data +"<br/>");
+//    $("#roomName").append( data +"<br/>");
+    $('#roomName').append("<div class='fa fa-users'>" + " " + data.room +"</div><br/>");
+    $('#talk').append('<div class="row ser"><span class="noti">Server said: </span>Room ' + '<span style="color: green; font-weight: bold;">' + data.room + '</span>' + ' has created by nickname '+ '<span style="color: green; font-weight: bold;">' +data.user + '</span>' + '.</div>');
 });
 
 
@@ -80,8 +83,9 @@ function addRoom () {
 
     $("#enterRoom").on('click', function() {
         // Check room if exist
-        $("#roomName").append("<div class='fa fa-users'>" + " " + $("#roomInput").val()+"</div><br/>");
-        socket.emit('create-room', $('#roomInput').val());
+        $("#roomName").append("<li class='list'>" + "<span class='icon-group'></span> " + $("#roomInput").val()+"</li>");
+//      socket.emit('create-room', $('#roomInput').val());
+        socket.emit('create-room', {'room': $('#roomInput').val()});
         $("#modalAddRoom").modal('toggle');
     });
 
@@ -97,10 +101,6 @@ function setConnect() {
                 $("#alertError").hide();
                 $("#modalPseudo").modal('hide');
                 $("#messageInput").focus();
-
-                
-
-                
                 $('#luser').append("<li class='list user-" + inp +  "' style='color: green; font-weight: bold;'>" + "<span class='icon-act'></span>" + " " +inp + "</li>");
                 
                 socket.on('new-user', function(data) {
@@ -110,7 +110,6 @@ function setConnect() {
                 
                 socket.on('luser', function(data) {
                     for (var prop in data) {
-                        //$("#luser").append("<div class='fa fa-user user-" + prop + "'>" + " " + prop +  "</div>");
                         $("#luser").append("<li class='list user-" + prop + "'>" + " <span class='icon'></span> " + " " + prop +  "</li>");
                     }
                 });
