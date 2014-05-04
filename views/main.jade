@@ -28,22 +28,23 @@ html(lang="en")
                             a(href="#Home") Home
                         li
                             a(href="#modalAbout", data-toggle="modal") About
-        div.container#main                            
-            div.col-xs-9.panel#chatConversion
-                div.panel-heading
-                div.panel-body#talk
-            div.col-xs-3#right
-                div.panel.panel-primary#listUser
+        div.container#main
+            div.row                            
+                div.col-lg-9.col-sm-9.panel#chatConversion
                     div.panel-heading
-                        h3.panel-title#numUser
-                    ul.panel-body#luser
-                div.panel.panel-primary#listRoom
-                    div.panel-heading
-                        h3.panel-title Room
-                        span#plus +
-                    ul.panel-body#roomName
-            textarea.form-control#messageInput
-        div.modal.fade#modalAddRoom
+                    div.panel-body#talk
+                div.col-lg-3.col-sm-3#right
+                    div.panel.panel-primary#listUser
+                        div.panel-heading
+                            h3.panel-title#numUser
+                        ul.panel-body#luser
+                    div.panel.panel-primary#listRoom
+                        div.panel-heading
+                            h3.panel-title Room
+                        ul.panel-body#roomName
+                span#plus +
+                textarea.form-control#messageInput
+        div.modal.col-xs-12.fade#modalAddRoom
             div.modal-header
                 h3 Add Room
             div.modal-body#bodyAdd

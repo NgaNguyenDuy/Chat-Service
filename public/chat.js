@@ -9,7 +9,15 @@ $(document).ready(function() {
     });
     checkInput();
     $("#talk").slimScroll({
-        height: '450px'
+        height: '340px'
+    });
+    
+    $('#luser').slimScroll({
+        height: '124px'
+    });
+    
+    $('#roomName').slimScroll({
+        height: '124px'
     });
     addRoom();
 
@@ -30,7 +38,7 @@ socket.on('connect', function() {
 
 
 socket.on('roomslist', function(data) {
-    console.log('success');
+//    console.log('success');
     // for(var i = 0, len = data.rooms.length; i < len; i++){
     //     if(data.rooms[i] != ''){
 	// 		//    addRoom(data.rooms[i], false);
@@ -58,7 +66,8 @@ socket.on('message', function(data) {
 
 socket.on('new-room', function(data) {
 //    $("#roomName").append( data +"<br/>");
-    $('#roomName').append("<div class='fa fa-users'>" + " " + data.room +"</div><br/>");
+//    $('#roomName').append("<div class='fa fa-users'>" + " " + data.room +"</div><br/>");
+    $("#roomName").append("<li class='list'>" + "<span class='icon-group'></span> " + data.room +"</li>");
     $('#talk').append('<div class="row ser"><span class="noti">Server said: </span>Room ' + '<span style="color: green; font-weight: bold;">' + data.room + '</span>' + ' has created by nickname '+ '<span style="color: green; font-weight: bold;">' +data.user + '</span>' + '.</div>');
 });
 
@@ -101,11 +110,24 @@ function setConnect() {
                 $("#alertError").hide();
                 $("#modalPseudo").modal('hide');
                 $("#messageInput").focus();
-                $('#luser').append("<li class='list user-" + inp +  "' style='color: green; font-weight: bold;'>" + "<span class='icon-act'></span>" + " " +inp + "</li>");
+                
+                $('#luser').append("<li class='list user-" + inp +  "' style='color: green; font-weight: bold;'>" + "<span class='icon-act'></span>" + " " + inp + "</li>");
                 
                 socket.on('new-user', function(data) {
                     $('#talk').append("<div class='row ser'><span class='noti'>Server said: </span>User " + data + " has joined!!</div>");
                     $('#luser').append("<li class='list user-" + data +  "'>" + "<span class='icon'></span>" + " " + data + "</li>");
+                });
+                
+                socket.on('roomslist', function(data) {
+                    console.log(data);
+                    for(var i = 0, len = data.rooms.length; i < len; i++){
+                        if(data.rooms[i] != ''){
+	                		// addRoom(data.rooms[i], false);
+                            $("#roomName").append("<li class='list'>" + "<span class='icon-group'></span> " + data.rooms[i] +"</li>");
+	                	} else {
+                            console.log("Empty room");
+                        }
+                    }
                 });
                 
                 socket.on('luser', function(data) {
@@ -113,9 +135,10 @@ function setConnect() {
                         $("#luser").append("<li class='list user-" + prop + "'>" + " <span class='icon'></span> " + " " + prop +  "</li>");
                     }
                 });
+                
+                
             } else {
-                $("#alertError").html("The user " + inp + " realy taken!!");
-                $("#alertError").slideDown();
+                $("#alertError").html("The user " + inp + " realy taken!!").slideDown();
             }
         });
         //$('#modalPseudo').modal('hide');
@@ -214,13 +237,15 @@ function addUser(nickname, self) {
 
 
 function addMess(msg, nickname, date, self) {
+    var classDiv = "";
     if (self) {
-        var classDiv = "row message self";
+        classDiv = "row message self";
     } else {
-        var classDiv = "row message";
+        classDiv = "row message other";
     }
-    //$("#talk").append('div class="' + classDiv + '"><p class="infos"><span class="userNick">' + nickname + '</span>, <time class="date" title="'+date+'">' + date +'</time><p>' + msg + '</p></p>');
     
-    $('#talk').append('<div class="'+classDiv+'"><p class="infos"><span class="pseudo">'+nickname+'</span>,<time class="date" title="'+date+'">'+date+'</time></p><p>' + msg + '</p></div>');
+    //$('#talk').append('<div class="'+classDiv+'"><p class="infos"><span class="pseudo">'+nickname+'</span>,<time class="date" title="'+date+'">'+date+'</time></p><p>' + msg + '</p></div>');
+    
+    $('#talk').append(nickname + ' said: ' + msg);
     
 }

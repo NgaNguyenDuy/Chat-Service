@@ -55,26 +55,24 @@ body {
 #main {
 	padding-top: 50px;
 }
-#chatConversion {
-    border: 1px solid grey;
-    border-radius: 5px;
-    background-color: rgba(0,0,0,.05);
-    box-shadow: 0 0 10px rgba(0,0,0,.5);
- }
-
 
 #listRoom {
   border-radius: 5px;
-     border: 1px solid grey;
+  border: 1px solid grey;
 
      background-color: rgba(0,0,0,.05);
      box-shadow: 0 0 10px rgba(0,0,0,.5);
 }
 
+#roomName {
+  padding: 15px;
+}
+
 #plus {
   float: right;
   position: relative;
-  top: -20px;
+  top: -175px;
+  right: 25px;
   padding: 0px 5px;
   display: inline-block;
   font-weight: bold;
@@ -94,6 +92,7 @@ body {
      border: 1px solid grey;
      background-color: rgba(0,0,0,.05);
      box-shadow: 0 0 10px rgba(0,0,0,.5);
+
 }
 
  #messageInput {
@@ -111,7 +110,7 @@ body {
     border-radius: 5px;
     background-color: rgba(0,0,0,.05);
     margin-bottom: 20px;
-    height: 500px;
+    height: 350px;
     box-shadow: 0 0 10px rgba(0,0,0,.5);
 }
 
@@ -123,20 +122,23 @@ body {
 .message {
 	overflow: hidden;
 	color: black;
-  font-family: Cursive;
-	margin-left: 0;
-	width: 864px;
+  font-family: "Droid Sans Mono";
+  padding: 5px 10px;
   -webkit-animation-name: flip;
   -webkit-animation-duration: 500ms;
   border-bottom:1px solid rgba(0, 0, 0, .1);
 }
 
 .self {
-	background: #c7c7c7; /* Old browsers */
+	background-color: #D4DDE5; /* Old browsers */
 	color: black;
 	text-align: right;
 }
 
+.other {
+  background-color: #ccc;
+  color: black;
+}
 .test1 {
   width: 600px;
   height: 220px;
