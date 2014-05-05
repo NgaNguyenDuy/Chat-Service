@@ -1,6 +1,7 @@
 var message, inp, clientId = null;
 $(document).ready(function() {
     message = $("#messageInput");
+
     $("#bodyHead").css({overflow: 'auto'});
     hideError();
     showModal();
@@ -13,13 +14,17 @@ $(document).ready(function() {
     });
     
     $('#luser').slimScroll({
-        height: '124px'
+        height: '130px'
     });
     
     $('#roomName').slimScroll({
-        height: '124px'
+        height: '130px'
     });
     addRoom();
+    
+    $('#luser').click(function() {
+        alert('he');
+    });
 
 });
 
@@ -67,7 +72,7 @@ socket.on('message', function(data) {
 socket.on('new-room', function(data) {
 //    $("#roomName").append( data +"<br/>");
 //    $('#roomName').append("<div class='fa fa-users'>" + " " + data.room +"</div><br/>");
-    $("#roomName").append("<li class='list'>" + "<span class='icon-group'></span> " + data.room +"</li>");
+    $("#roomName").append("<li class='list room-" + data.room  + "'>" + "<span class='icon-group'></span> " + data.room +"</li>");
     $('#talk').append('<div class="row ser"><span class="noti">Server said: </span>Room ' + '<span style="color: green; font-weight: bold;">' + data.room + '</span>' + ' has created by nickname '+ '<span style="color: green; font-weight: bold;">' +data.user + '</span>' + '.</div>');
 });
 
@@ -92,7 +97,7 @@ function addRoom () {
 
     $("#enterRoom").on('click', function() {
         // Check room if exist
-        $("#roomName").append("<li class='list'>" + "<span class='icon-group'></span> " + $("#roomInput").val()+"</li>");
+        $("#roomName").append("<li class='list room-" + $('#roomInput').val() + "'>" + "<span class='icon-group'></span> " + $("#roomInput").val()+"</li>");
 //      socket.emit('create-room', $('#roomInput').val());
         socket.emit('create-room', {'room': $('#roomInput').val()});
         $("#modalAddRoom").modal('toggle');
@@ -122,8 +127,8 @@ function setConnect() {
                     console.log(data);
                     for(var i = 0, len = data.rooms.length; i < len; i++){
                         if(data.rooms[i] != ''){
-	                		// addRoom(data.rooms[i], false);
-                            $("#roomName").append("<li class='list'>" + "<span class='icon-group'></span> " + data.rooms[i] +"</li>");
+                            data.rooms[i] = data.rooms[i].replace('/','');
+                            $("#roomName").append("<li class='list room-" + data.rooms[i]+ "'>" + "<span class='icon-group'></span> " + data.rooms[i] +"</li>");
 	                	} else {
                             console.log("Empty room");
                         }
@@ -231,10 +236,14 @@ function addUser(nickname, self) {
     } else {
         userDiv = "row nickname";
     }
-    
-    
 }
 
+
+function DomEvent() {
+    $("#roomName li").on("click", function() {
+        console.log('hehe');
+    });
+}
 
 function addMess(msg, nickname, date, self) {
     var classDiv = "";

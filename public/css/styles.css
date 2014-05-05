@@ -71,7 +71,7 @@ body {
 #plus {
   float: right;
   position: relative;
-  top: -175px;
+  top: -180px;
   right: 25px;
   padding: 0px 5px;
   display: inline-block;
@@ -110,7 +110,7 @@ body {
     border-radius: 5px;
     background-color: rgba(0,0,0,.05);
     margin-bottom: 20px;
-    height: 350px;
+    height: 360px;
     box-shadow: 0 0 10px rgba(0,0,0,.5);
 }
 
