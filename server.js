@@ -76,10 +76,13 @@ var run = function(socket) {
             socket.set('pseudo', data, function() {
                 socket.emit('status', 'ok');
                 socket.broadcast.emit('new-user', data);
-                socket.emit('luser', ListClient);
+  
+
                 socket.emit('roomslist', { rooms: getRooms() });
                 ListClient[data] = socket.id;
                 console.log("User " + data + " connected!!");
+                socket.emit('luser', ListClient);
+//                console.log(ListClient);
             });
             
         } else {

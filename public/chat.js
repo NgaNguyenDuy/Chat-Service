@@ -66,7 +66,7 @@ function setConnect() {
                 $("#messageInput").focus();
 
                 socket.on('new-user', function(data) {
-                    $("#luser").append(data);
+                    $("#luser").append(data); // show username
                 });
                 
                 socket.on('luser', function(data) {
@@ -177,10 +177,10 @@ function addUser(nickname, self) {
 function addMess(msg, nickname, date, self) {
     if (self) {
         var classDiv = "row message self";
-	var st = "box";
+	    var st = "box";
     } else {
         var classDiv = "row message";
-	var st = "box";
+	    var st = "box";
     }
     //$("#talk").append('div class="' + classDiv + '"><p class="infos"><span class="userNick">' + nickname + '</span>, <time class="date" title="'+date+'">' + date +'</time><p>' + msg + '</p></p>');
     
